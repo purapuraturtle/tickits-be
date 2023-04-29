@@ -13,5 +13,7 @@ movieRouter.post(
   memoryUpload.single("image"),
   movieController.createMovie
 );
+movieRouter.get("/", movieController.readDataMovies);
+movieRouter.get("/:id", movieController.readDataMovie);
 
 module.exports = movieRouter;
