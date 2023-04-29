@@ -34,19 +34,18 @@ const readDataMovies = async (req, res) => {
         .status(200)
         .json({ status: 200, msg: "Success get all movies", data });
     }
-    let { page, limit, movie_name, category } = req.query;
+    let { page, limit, search } = req.query;
     page = page || 1;
-    category = category || "";
+    search = search || "";
     limit = limit < 5 ? 5 : limit || 5;
-    movie_name = movie_name || "";
 
     const data = await moviesModel.getAllMovies();
 
     let dataFiltering = [];
     dataFiltering = data.filter(
       (item) =>
-        item.movie_name.toLowerCase().includes(movie_name) &&
-        item.category.toLowerCase().includes(category)
+        item.movie_name.toLowerCase().includes(search) ||
+        item.category.toLowerCase().includes(search)
     );
     const totaldata = dataFiltering.length;
     const totalpage = Math.ceil(totaldata / limit);
