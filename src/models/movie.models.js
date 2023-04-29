@@ -32,6 +32,39 @@ const createMovie = (req, fileLink) => {
   });
 };
 
+const getAllMovies = () => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "select m.id,m.movie_name,  m.image, g.genre_name, m.category from movies m join movie_genre q on m.id=q.movie_id join genre g on q.genre_id=g.id",
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.rows);
+        }
+      }
+    );
+  });
+};
+
+const getDataById = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "select m.id, m.movie_name, m.image, g.genre_name, release_date, director, duration_hour, duration_minute, aktors, sinopsis from movies m join movie_genre q on m.id=q.movie_id join genre g on q.genre_id=g.id where m.id=$1",
+      [id],
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.rows);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   createMovie,
+  getAllMovies,
+  getDataById,
 };
