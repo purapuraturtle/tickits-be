@@ -52,8 +52,39 @@ const updatePassword = (id, password) => {
     );
   });
 };
+const getDetailId = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "select id, role_id, email, phone, first_name, last_name, image from users where id=$1",
+      [id],
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result.rows);
+      }
+    );
+  });
+};
+
+const updateData = (data, id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `update users set ${Object.keys(data)
+        .map((key, index) => `${key}=$${index + 1}`)
+        .join(",")} where id=$${
+        Object.keys(data).length + 1
+      } returning id, email, first_name, last_name, phone, image`,
+      [...Object.values(data), id],
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result.rows);
+      }
+    );
+  });
+};
 
 module.exports = {
+  updateData,
+  getDetailId,
   checkEmail,
   register,
   login,

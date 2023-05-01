@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const { sendToMail } = require("../helpers/mail");
+const { uploader } = require("../utils/cloudinary");
 
 const client = require("../config/redis");
 const env = require("../config/environment");
@@ -134,16 +135,55 @@ const resetPassword = async (req, res) => {
     const result = await authModels.updatePassword(userId, hashedPassword);
     return res
       .status(200)
-      .json({ status: 200, msg: "Succes reset your password", data: result });
+      .json({ status: 200, msg: "Succes reset password", data: result });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 500, msg: "Internal server error" });
+  }
+};
+const getDataProfile = async (req, res) => {
+  try {
+    console.log(req.authInfo);
+    const { id } = req.authInfo;
+    const result = await authModels.getDetailId(id);
+    return res
+      .status(200)
+      .json({ status: 200, msg: "Succes get data", data: result });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ status: 500, msg: "Internal server error" });
   }
 };
 
+const editDataUsers = async (req, res) => {
+  try {
+    const { id } = req.authInfo;
+    let { first_name, last_name, phone } = req.body;
+    const upload = await uploader(
+      req,
+      "profile",
+      req.file?.originalname.split(".")[0]
+    );
+    const data = {
+      first_name: first_name || undefined,
+      last_name: last_name || undefined,
+      phone: phone || undefined,
+      image: req.file ? upload.data.url : undefined,
+    };
+    const result = await authModels.updateData(data, id);
+    return res
+      .status(200)
+      .json({ status: 200, msg: "Succes update data", data: result });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 500, msg: "Internal server error" });
+  }
+};
 module.exports = {
+  editDataUsers,
   register,
   login,
   forgotPassword,
   resetPassword,
+  getDataProfile,
 };
