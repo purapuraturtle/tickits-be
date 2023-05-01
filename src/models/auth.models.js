@@ -2,7 +2,7 @@ const db = require("../config/supabase");
 
 const checkEmail = (email) => {
   return new Promise((resolve, reject) => {
-    const sqlQuery = "SELECT email FROM users WHERE email = $1";
+    const sqlQuery = "SELECT id, email, first_name FROM users WHERE email = $1";
     db.query(sqlQuery, [email], (err, result) => {
       if (err) return reject(err);
       resolve(result);
@@ -32,8 +32,31 @@ const login = (email) => {
   });
 };
 
+const checkUser = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query("select id from users where id=$1", [id], (error, result) => {
+      if (error) reject(error);
+      else resolve(result.rows);
+    });
+  });
+};
+const updatePassword = (id, password) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "update users set password=$2 where id=$1 returning id",
+      [id, password],
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result.rows);
+      }
+    );
+  });
+};
+
 module.exports = {
   checkEmail,
   register,
   login,
+  checkUser,
+  updatePassword,
 };
