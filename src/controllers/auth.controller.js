@@ -1,6 +1,9 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+const { sendToMail } = require("../helpers/mail");
+
+const client = require("../config/redis");
 const env = require("../config/environment");
 
 const authModels = require("../models/auth.models");
@@ -71,6 +74,37 @@ const login = async (req, res) => {
       });
     });
   } catch (error) {
+    res.status(500).json({
+      msg: "Internal Server Error",
+    });
+  }
+};
+
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const checkEmail = await authModels.checkEmail(email);
+    if (checkEmail.rows.length < 1) {
+      return res
+        .status(404)
+        .json({ status: 404, msg: "email not found", data: [] });
+    }
+    const { id, first_name } = checkEmail.rows[0];
+    console.log(id);
+    client.SETEX(id, 3600, id);
+    const data = {
+      name: first_name == null ? "New Users" : first_name,
+      to: email,
+      subject: "Reset Password",
+      template: "forgotpassword.html",
+      actionUrl: `http:localhost:3000/reset-password/${id}`,
+    };
+    await sendToMail(data);
+    return res.status(200).json({
+      status: 200,
+      msg: `Sent!, Please check your email`,
+    });
+  } catch (error) {
     console.log(error);
     res.status(500).json({
       msg: "Internal Server Error",
@@ -78,7 +112,38 @@ const login = async (req, res) => {
   }
 };
 
+const resetPassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { newPassword, confirmPassword } = req.body;
+    const userId = await client.get(id);
+    if (!userId) {
+      return res.status(400).json({ status: 404, msg: "Something wrong" });
+    }
+    const checkUser = await authModels.checkUser(userId);
+    if (checkUser.length < 1) {
+      return res.status(404).json({ msg: "Users not Found" });
+    }
+    if (newPassword !== confirmPassword) {
+      return res
+        .status(400)
+        .json({ status: 400, msg: "Password does not match" });
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    const result = await authModels.updatePassword(userId, hashedPassword);
+    return res
+      .status(200)
+      .json({ status: 200, msg: "Succes reset your password", data: result });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 500, msg: "Internal server error" });
+  }
+};
+
 module.exports = {
   register,
   login,
+  forgotPassword,
+  resetPassword,
 };
