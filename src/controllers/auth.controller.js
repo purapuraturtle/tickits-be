@@ -200,6 +200,31 @@ const editDataUsers = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
+const editPassword = async (req, res) => {
+  try {
+    const { id } = req.authInfo;
+    const { newPassword, confirmPassword } = req.body;
+
+    if (newPassword !== confirmPassword) {
+      return res.status(403).json({
+        status: 403,
+        msg: "New Password and Confirm Password doesn't match",
+      });
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const result = await authModels.editPassword(id, hashedPassword);
+    return res
+      .status(200)
+      .json({ status: 200, msg: "Succes update data", data: result });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 500, msg: "Internal server error" });
+  }
+};
+
+=======
+>>>>>>> 21c96960414211be58d06dbc4d4e30843b277d31
 module.exports = {
   editDataUsers,
   register,
@@ -208,4 +233,5 @@ module.exports = {
   checkResetPassword,
   resetPassword,
   getDataProfile,
+  editPassword,
 };

@@ -12,4 +12,6 @@ teatherRouter.post(
   teatherController.createSchedule
 );
 
+teatherRouter.get("/", teatherController.readDataStudio);
+
 module.exports = teatherRouter;

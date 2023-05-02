@@ -82,7 +82,21 @@ const updateData = (data, id) => {
   });
 };
 
+const editPassword = (id, newPassword) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "update users set password=$2 where id=$1 returning id",
+      [id, newPassword],
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result.rows);
+      }
+    );
+  });
+};
+
 module.exports = {
+  editPassword,
   updateData,
   getDetailId,
   checkEmail,
