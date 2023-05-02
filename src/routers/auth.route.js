@@ -8,6 +8,7 @@ const upload = require("../middlewares/memoryUpload");
 authRouter.post("/register", authController.register);
 authRouter.post("/login", authController.login);
 authRouter.post("/forgot-password", authController.forgotPassword);
+authRouter.get("/reset-password/:id", authController.checkResetPassword);
 authRouter.post("/reset-password/:id", authController.resetPassword);
 authRouter.get(
   "/detail",

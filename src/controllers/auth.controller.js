@@ -113,6 +113,25 @@ const forgotPassword = async (req, res) => {
   }
 };
 
+const checkResetPassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = await client.get(id);
+    if (!userId) {
+      return res.status(404).json({ status: 404, msg: "Code is not valid" });
+    }
+    const checkUser = await authModels.checkUser(userId);
+    if (checkUser.length < 1) {
+      return res.status(404).json({ msg: "Users not Found" });
+    }
+
+    return res.status(200).json({ status: 200, msg: "Code is valid" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 500, msg: "Internal server error" });
+  }
+};
+
 const resetPassword = async (req, res) => {
   try {
     const { id } = req.params;
@@ -135,12 +154,13 @@ const resetPassword = async (req, res) => {
     const result = await authModels.updatePassword(userId, hashedPassword);
     return res
       .status(200)
-      .json({ status: 200, msg: "Succes reset password", data: result });
+      .json({ status: 200, msg: "Success reset password", data: result });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ status: 500, msg: "Internal server error" });
   }
 };
+
 const getDataProfile = async (req, res) => {
   try {
     console.log(req.authInfo);
@@ -180,6 +200,7 @@ const editDataUsers = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 const editPassword = async (req, res) => {
   try {
     const { id } = req.authInfo;
@@ -202,11 +223,14 @@ const editPassword = async (req, res) => {
   }
 };
 
+=======
+>>>>>>> 21c96960414211be58d06dbc4d4e30843b277d31
 module.exports = {
   editDataUsers,
   register,
   login,
   forgotPassword,
+  checkResetPassword,
   resetPassword,
   getDataProfile,
   editPassword,
