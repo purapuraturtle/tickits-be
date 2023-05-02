@@ -200,7 +200,6 @@ const editDataUsers = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
 const editPassword = async (req, res) => {
   try {
     const { id } = req.authInfo;
@@ -223,8 +222,6 @@ const editPassword = async (req, res) => {
   }
 };
 
-=======
->>>>>>> 21c96960414211be58d06dbc4d4e30843b277d31
 module.exports = {
   editDataUsers,
   register,
