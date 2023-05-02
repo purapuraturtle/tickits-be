@@ -62,4 +62,16 @@ module.exports = {
       });
     });
   },
+  getDataBooked: (movie_id, teathstudio_id) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "select h.id, t.teather_name, t.image, m.movie_name, ts.open_date, ts.open_time, ts.price, tr.block_name, tr.block_number from history h join movies m on h.movie_id=m.id join teather_studio ts on h.teathstudio_id=ts.id join teathers t on ts.teather_id=t.id join transaction tr on h.id=tr.history_id where h.movie_id=$1 and h.teathstudio_id=$2",
+        [movie_id, teathstudio_id],
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result.rows);
+        }
+      );
+    });
+  },
 };

@@ -19,7 +19,7 @@ module.exports = {
       const result = await bookingModel.getTransactionById(addOrder[0].id);
       return res.status(200).json({
         status: 200,
-        msg: "Success order product",
+        msg: "Success booking movie",
         data: result,
       });
     } catch (error) {
@@ -29,6 +29,47 @@ module.exports = {
         .json({ status: 500, msg: "internal server error" });
     } finally {
       client.release();
+    }
+  },
+  readDataBooking: async (req, res) => {
+    try {
+      const { movie_id, teathstudio_id } = req.body;
+      const data = await bookingModel.getDataBooked(movie_id, teathstudio_id);
+      const result = data.reduce((acc, cur) => {
+        const existingObj = acc.find((obj) => obj.id === cur.id);
+
+        if (existingObj) {
+          existingObj.seat.push({
+            block_name: cur.block_name,
+            block_number: cur.block_number,
+          });
+        } else {
+          acc.push({
+            id: cur.id,
+            teacher_name: cur.teacher_name,
+            image: cur.image || null,
+            movie_name: cur.movie_name,
+            open_date: cur.open_date,
+            open_time: cur.open_time,
+            price: cur.price,
+            seat: [
+              { block_name: cur.block_name, block_number: cur.block_number },
+            ],
+          });
+        }
+
+        return acc;
+      }, []);
+      return res.status(200).json({
+        status: 200,
+        msg: "Success get data booked",
+        data: result,
+      });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ status: 500, msg: "internal server error" });
     }
   },
 };
