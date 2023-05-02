@@ -20,4 +20,9 @@ authRouter.patch(
   upload.single("image"),
   authController.editDataUsers
 );
+authRouter.patch(
+  "/edit-password",
+  authentication.checkToken,
+  authController.editPassword
+);
 module.exports = authRouter;
