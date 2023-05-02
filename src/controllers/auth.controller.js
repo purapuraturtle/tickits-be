@@ -125,9 +125,7 @@ const checkResetPassword = async (req, res) => {
       return res.status(404).json({ msg: "Users not Found" });
     }
 
-    return res
-      .status(200)
-      .json({ status: 200, msg: "Code is valid", data: result });
+    return res.status(200).json({ status: 200, msg: "Code is valid" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ status: 500, msg: "Internal server error" });
