@@ -178,18 +178,37 @@ const getDataProfile = async (req, res) => {
 const editDataUsers = async (req, res) => {
   try {
     const { id } = req.authInfo;
-    let { first_name, last_name, phone } = req.body;
+    let { first_name, last_name, phone, newPassword, confirmPassword } =
+      req.body;
     const upload = await uploader(
       req,
       "profile",
       req.file?.originalname.split(".")[0]
     );
-    const data = {
+
+    if (newPassword !== confirmPassword) {
+      return res.status(403).json({
+        status: 403,
+        msg: "New Password and Confirm Password doesn't match",
+      });
+    }
+
+    let data = {
       first_name: first_name || undefined,
       last_name: last_name || undefined,
       phone: phone || undefined,
       image: req.file ? upload.data.url : undefined,
     };
+
+    if (newPassword && confirmPassword && newPassword === confirmPassword) {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      data.password = hashedPassword;
+    } else if (newPassword || confirmPassword) {
+      return res.status(403).json({
+        status: 403,
+        msg: "New Password and Confirm Password doesn't match",
+      });
+    }
     const result = await authModels.updateData(data, id);
     return res
       .status(200)
