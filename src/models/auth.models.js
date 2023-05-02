@@ -83,8 +83,6 @@ const updateData = (data, id) => {
 };
 
 const editPassword = (id, newPassword) => {
-  console.log(id);
-  console.log(newPassword);
   return new Promise((resolve, reject) => {
     db.query(
       "update users set password=$2 where id=$1 returning id",
