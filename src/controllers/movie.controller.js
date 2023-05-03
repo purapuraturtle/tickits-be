@@ -40,9 +40,27 @@ const readDataMovies = async (req, res) => {
     limit = limit < 5 ? 5 : limit || 5;
 
     const data = await moviesModel.getAllMovies();
+    const groupedData = data.reduce((acc, cur) => {
+      const existingObj = acc.find((obj) => obj.id === cur.id);
+
+      if (existingObj) {
+        return acc;
+      } else {
+        acc.push({
+          id: cur.id,
+          movie_name: cur.movie_name,
+          imege: cur.image,
+          genre_name: cur.genre_name,
+          payment_method: cur.payment_method,
+          category: cur.category,
+        });
+      }
+
+      return acc;
+    }, []);
 
     let dataFiltering = [];
-    dataFiltering = data.filter(
+    dataFiltering = groupedData.filter(
       (item) =>
         item.movie_name.toLowerCase().includes(search) ||
         item.category.toLowerCase().includes(search)
@@ -67,6 +85,7 @@ const readDataMovies = async (req, res) => {
           : result[page - 1],
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ status: 500, msg: "internal server error" });
   }
 };
