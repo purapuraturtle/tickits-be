@@ -18,10 +18,9 @@ const createSchedule = async (req, res) => {
 
 const readDataStudio = async (req, res) => {
   try {
-    let { open_date } = req.params;
-    open_date = open_date || "";
+    let { open_date } = req.query;
+    open_date = open_date || new Date().toISOString().split("T")[0];
     const data = await teatherModels.getDataStudio();
-
     const result = data.reduce((acc, cur) => {
       const existingItem = acc.find(
         (item) => item.teather_id === cur.teather_id
@@ -50,8 +49,12 @@ const readDataStudio = async (req, res) => {
 
       return acc;
     }, []);
+    console.log(open_date);
     const newResult = open_date
-      ? result.filter((item) => item.open_date.includes(open_date))
+      ? result.filter((item) => {
+          const itemDate = new Date(item.open_date).toISOString().split("T")[0];
+          return itemDate.includes(open_date);
+        })
       : result;
     return res
       .status(200)
