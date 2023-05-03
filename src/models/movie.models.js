@@ -35,7 +35,7 @@ const createMovie = (req, fileLink) => {
 const getAllMovies = () => {
   return new Promise((resolve, reject) => {
     db.query(
-      "select m.id,m.movie_name,  m.image, g.genre_name, m.category from movies m join movie_genre q on m.id=q.movie_id join genre g on q.genre_id=g.id",
+      "select m.id, m.movie_name,  m.image, g.genre_name, m.category from movies m join movie_genre q on m.id=q.movie_id join genre g on q.genre_id=g.id",
       (error, result) => {
         if (error) {
           reject(error);

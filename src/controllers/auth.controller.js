@@ -98,7 +98,7 @@ const forgotPassword = async (req, res) => {
       to: email,
       subject: "Reset Password",
       template: "forgotpassword.html",
-      actionUrl: `http:localhost:3000/reset-password/${id}`,
+      actionUrl: `https://tickits-fe.vercel.app/reset-password/${id}`,
     };
     await sendToMail(data);
     return res.status(200).json({
