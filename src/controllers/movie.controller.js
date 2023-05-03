@@ -34,11 +34,12 @@ const readDataMovies = async (req, res) => {
         .status(200)
         .json({ status: 200, msg: "Success get all movies", data });
     }
-    let { page, limit, search } = req.query;
+
+    let { page, limit, search, sort } = req.query;
     page = page || 1;
     search = search || "";
     limit = limit < 5 ? 5 : limit || 5;
-
+    sorting = sort || "";
     const data = await moviesModel.getAllMovies();
     const groupedData = data.reduce((acc, cur) => {
       const existingObj = acc.find((obj) => obj.id === cur.id);
@@ -49,7 +50,7 @@ const readDataMovies = async (req, res) => {
         acc.push({
           id: cur.id,
           movie_name: cur.movie_name,
-          imege: cur.image,
+          image: cur.image,
           genre_name: cur.genre_name,
           payment_method: cur.payment_method,
           category: cur.category,
@@ -67,8 +68,29 @@ const readDataMovies = async (req, res) => {
     );
     const totaldata = dataFiltering.length;
     const totalpage = Math.ceil(totaldata / limit);
-
-    let result = helper.listToMatrix(dataFiltering, limit);
+    const sortingData =
+      sorting == "asc"
+        ? dataFiltering.sort((a, b) => {
+            if (a.movie_name < b.movie_name) {
+              return -1;
+            }
+            if (a.movie_name > b.movie_name) {
+              return 1;
+            }
+            return 0;
+          })
+        : sorting == "dsc"
+        ? dataFiltering.sort((a, b) => {
+            if (a.movie_name < b.movie_name) {
+              return 1;
+            }
+            if (a.movie_name > b.movie_name) {
+              return -1;
+            }
+            return 0;
+          })
+        : dataFiltering;
+    let result = helper.listToMatrix(sortingData, limit);
 
     return res.status(200).json({
       status: 200,
