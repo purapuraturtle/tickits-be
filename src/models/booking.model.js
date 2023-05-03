@@ -1,18 +1,6 @@
 const db = require("../config/supabase");
 
 module.exports = {
-  getPrice: (movie_id, teathStudio_id) => {
-    return new Promise((resolve, reject) => {
-      db.query(
-        "select price from teather_studio where movie_id=$1 and id=$2",
-        [movie_id, teathStudio_id],
-        (error, result) => {
-          if (error) reject(error);
-          else resolve(result.rows);
-        }
-      );
-    });
-  },
   addOrder: ({
     user_id,
     movie_id,
@@ -56,10 +44,14 @@ module.exports = {
   },
   getTransactionById: (id) => {
     return new Promise((resolve, reject) => {
-      db.query("select * from history where id=$1", [id], (error, result) => {
-        if (error) reject(error);
-        else resolve(result.rows);
-      });
+      db.query(
+        "select h.id, t.teather_name, t.image, m.movie_name, ts.open_date, ts.open_time, ts.price, tr.block_name, tr.block_number from history h join movies m on h.movie_id=m.id join teather_studio ts on h.teathstudio_id=ts.id join teathers t on ts.teather_id=t.id join transaction tr on h.id=tr.history_id where h.id=$1",
+        [id],
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result.rows);
+        }
+      );
     });
   },
   getDataBooked: (movie_id, teathstudio_id) => {
