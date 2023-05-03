@@ -13,5 +13,6 @@ teatherRouter.post(
 );
 
 teatherRouter.get("/", teatherController.readDataStudio);
+teatherRouter.get("/:movie_id", teatherController.readDataByMovie);
 
 module.exports = teatherRouter;
