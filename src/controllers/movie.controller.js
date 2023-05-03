@@ -49,7 +49,7 @@ const readDataMovies = async (req, res) => {
         acc.push({
           id: cur.id,
           movie_name: cur.movie_name,
-          imege: cur.image,
+          image: cur.image,
           genre_name: cur.genre_name,
           payment_method: cur.payment_method,
           category: cur.category,
