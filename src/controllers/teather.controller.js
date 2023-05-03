@@ -21,6 +21,7 @@ const readDataStudio = async (req, res) => {
     let { open_date } = req.params;
     open_date = open_date || "";
     const data = await teatherModels.getDataStudio();
+
     const result = data.reduce((acc, cur) => {
       const existingItem = acc.find(
         (item) => item.teather_id === cur.teather_id
@@ -28,7 +29,11 @@ const readDataStudio = async (req, res) => {
 
       if (existingItem) {
         if (!existingItem.open_time.includes(cur.open_time)) {
-          existingItem.open_time.push(cur.open_time);
+          existingItem.open_time.push({
+            id: cur.id,
+            open_time: cur.open_time,
+            price: cur.price,
+          });
         }
       } else {
         acc.push({
@@ -37,7 +42,9 @@ const readDataStudio = async (req, res) => {
           address: cur.address,
           image: cur.image,
           open_date: cur.open_date,
-          open_time: [cur.open_time],
+          open_time: [
+            { id: cur.id, open_time: cur.open_time, price: cur.price },
+          ],
         });
       }
 

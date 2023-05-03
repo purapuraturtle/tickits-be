@@ -192,6 +192,7 @@ const editDataUsers = async (req, res) => {
         msg: "New Password and Confirm Password doesn't match",
       });
     }
+
     let data = {
       first_name: first_name || undefined,
       last_name: last_name || undefined,
