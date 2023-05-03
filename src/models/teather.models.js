@@ -44,8 +44,21 @@ const getDataStudio = () => {
     );
   });
 };
+const getByMovie = (movie_id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "select ts.teather_id, open_time, open_date, t.teather_name, t.address, t.image, ts.price from teather_studio ts join teathers t on ts.teather_id=t.id where ts.movie_id=$1",
+      [movie_id],
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result.rows);
+      }
+    );
+  });
+};
 
 module.exports = {
   createSchedule,
   getDataStudio,
+  getByMovie,
 };
