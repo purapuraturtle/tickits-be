@@ -242,6 +242,19 @@ const editPassword = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(" ")[1];
+
+    client.setEx("blacklist", 3600 * 2, token);
+    return res.status(200).json({ status: 200, msg: "Logout success" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 500, msg: "Internal server error" });
+  }
+};
+
 module.exports = {
   editDataUsers,
   register,
@@ -251,4 +264,5 @@ module.exports = {
   resetPassword,
   getDataProfile,
   editPassword,
+  logout,
 };

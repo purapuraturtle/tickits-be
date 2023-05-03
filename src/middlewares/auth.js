@@ -1,9 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { jwtSecret } = require("../config/environment");
+const client = require("../config/redis");
 
-const authModels = require("../models/auth.models");
-
-const checkToken = (req, res, next) => {
+const checkToken = async (req, res, next) => {
   const bearerToken = req.header("Authorization");
   if (!bearerToken)
     return res.status(403).json({
@@ -11,6 +10,10 @@ const checkToken = (req, res, next) => {
     });
 
   const token = bearerToken.split(" ")[1];
+  const blacklist = await client.get("blacklist");
+  if (blacklist === token) {
+    return res.status(403).json({ msg: "Token is expired" });
+  }
   jwt.verify(token, jwtSecret, async (err, payload) => {
     if (err && err.name)
       return res.status(403).json({

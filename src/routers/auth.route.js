@@ -6,6 +6,7 @@ const authentication = require("../middlewares/auth");
 const upload = require("../middlewares/memoryUpload");
 
 authRouter.post("/register", authController.register);
+authRouter.post("/logout", authController.logout);
 authRouter.post("/login", authController.login);
 authRouter.post("/forgot-password", authController.forgotPassword);
 authRouter.get("/reset-password/:id", authController.checkResetPassword);
@@ -26,4 +27,5 @@ authRouter.patch(
   authentication.checkToken,
   authController.editPassword
 );
+
 module.exports = authRouter;
