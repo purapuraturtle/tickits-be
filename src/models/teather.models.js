@@ -36,7 +36,7 @@ const createSchedule = async (body) => {
 const getDataStudio = () => {
   return new Promise((resolve, reject) => {
     db.query(
-      "select ts.teather_id, open_time, open_date, t.teather_name, t.address, t.image from teather_studio ts join teathers t on ts.teather_id=t.id",
+      "select ts.id, ts.teather_id, open_time, open_date, t.teather_name, t.address, t.image, ts.price from teather_studio ts join teathers t on ts.teather_id=t.id",
       (error, result) => {
         if (error) reject(error);
         else resolve(result.rows);

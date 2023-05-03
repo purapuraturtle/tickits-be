@@ -197,9 +197,10 @@ const editDataUsers = async (req, res) => {
       first_name: first_name || undefined,
       last_name: last_name || undefined,
       phone: phone || undefined,
-      image: req.file ? upload.data.url : undefined,
     };
-
+    if (upload.data !== null) {
+      data.image = upload.data.url;
+    }
     if (newPassword && confirmPassword && newPassword === confirmPassword) {
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       data.password = hashedPassword;
