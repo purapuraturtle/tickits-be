@@ -32,6 +32,24 @@ const createMovie = (req, fileLink) => {
   });
 };
 
+const createGenreMovie = (data) => {
+  return new Promise((resolve, reject) => {
+    let sqlQuery = "INSERT INTO movie_genre (movie_id, genre_id) VALUES ";
+    let values = [];
+
+    data.forEach((element, idx) => {
+      if (idx !== 0) sqlQuery += ", ";
+      sqlQuery += `($${1 + 2 * idx}, $${2 + 2 * idx})`;
+      values.push(element.movieId, element.genreId);
+    });
+
+    db.query(sqlQuery, values, (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
+  });
+};
+
 const getAllMovies = () => {
   return new Promise((resolve, reject) => {
     db.query(
@@ -65,6 +83,7 @@ const getDataById = (id) => {
 
 module.exports = {
   createMovie,
+  createGenreMovie,
   getAllMovies,
   getDataById,
 };

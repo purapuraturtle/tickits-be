@@ -1,4 +1,5 @@
 const moviesModel = require("../models/movie.models");
+const genreModel = require("../models/genre.models");
 
 const helper = require("../helpers/pages");
 
@@ -13,6 +14,17 @@ const createMovie = async (req, res) => {
       fileLink = upCloud.data.secure_url;
     }
     const result = await moviesModel.createMovie(req, fileLink);
+    const genre = await genreModel.getGenre();
+    const categories = req.body.category.split(",").map((item) => item.trim());
+    const filteredGenre = genre.rows
+      .filter((item) => categories.includes(item.genre_name))
+      .map((item) => {
+        return {
+          movieId: result.rows[0].id,
+          genreId: item.id,
+        };
+      });
+    await moviesModel.createGenreMovie(filteredGenre);
     res.status(201).json({
       msg: "Create Movie Success",
       data: result.rows[0],
