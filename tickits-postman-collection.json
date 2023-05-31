@@ -1,0 +1,610 @@
+{
+	"info": {
+		"_postman_id": "913e0f67-fc5e-4a42-8508-1eda17337256",
+		"name": "Tikitz BE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22836099"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"hetimay997@jobbrett.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3001/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "raihanirvana13@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "111112",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3001/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "hetimay997@jobbrett.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3001/auth/forgot-password",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "newPassword",
+									"value": "111111",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "111111",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3001/auth/reset-password/ed7f5421-bd50-4d11-973b-6a3554cd077b",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"reset-password",
+								"ed7f5421-bd50-4d11-973b-6a3554cd077b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/auth/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MOVIE",
+			"item": [
+				{
+					"name": "create movie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "movie_name",
+									"value": "Hatory Mencari Cinta",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Action, Adventure",
+									"type": "text"
+								},
+								{
+									"key": "release_date",
+									"value": "07/06/20119",
+									"type": "text"
+								},
+								{
+									"key": "duration_hour",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "duration_minute",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "director",
+									"value": "Alan Schokal",
+									"type": "text"
+								},
+								{
+									"key": "aktors",
+									"value": "John Deep, Galgadot",
+									"type": "text"
+								},
+								{
+									"key": "sinopsis",
+									"value": "lorem ipsum dolor sit amet",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3001/movie",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get genre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/genre",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"genre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read data movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/movie?page=&limit=&search=&sort",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"movie"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": ""
+								},
+								{
+									"key": "limit",
+									"value": ""
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "sort",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/movie/eb1cbd47-ad32-4c6e-ae7e-d57dd2a36920",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"movie",
+								"eb1cbd47-ad32-4c6e-ae7e-d57dd2a36920"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get data studio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/teather?open_date=",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"teather"
+							],
+							"query": [
+								{
+									"key": "open_date",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create shceldule",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"teather_id\": 1, \r\n        \"open_date\": \"2023/05/05\", \r\n        \"open_time\": \"13:10\", \r\n        \"price\": 12, \r\n        \"movie_id\": \"eb1cbd47-ad32-4c6e-ae7e-d57dd2a36920\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3001/teather/create-schedule",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"teather",
+								"create-schedule"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BOOKING",
+			"item": [
+				{
+					"name": "booking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\":\"61ae12bb-0ba4-48dd-9bf5-833f324b14b0\",\r\n    \"movie_id\":\"c86f937b-ea07-495c-9047-da30a1b758e5\",\r\n    \"teathStudio_id\":8,\r\n    \"seat\":[{\r\n        \"block_name\":\"C\",\r\n        \"block_number\":7\r\n    },{\r\n        \"block_name\":\"C\",\r\n        \"block_number\":8\r\n    },{\r\n        \"block_name\":\"C\",\r\n        \"block_number\":9\r\n    }],\r\n    \"total_price\":30,\r\n    \"payment_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3001/booking",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get data booking",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "movie_id",
+									"value": "c86f937b-ea07-495c-9047-da30a1b758e5",
+									"type": "text"
+								},
+								{
+									"key": "teathstudio_id",
+									"value": "8",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3001/booking",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get data boking by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/booking/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"booking",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROFILE",
+			"item": [
+				{
+					"name": "detail profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/auth/detail",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit data",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "XXX",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "a",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "879798789790",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "newPassword",
+									"value": "111111",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "111111",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3001/auth/edit",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "newPassword",
+									"value": "112233",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "112233",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3001/auth/edit-password",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"edit-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check reset password ssr",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/auth/reset-password/ed7f5421-bd50-4d11-973b-6a3554cd077b",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"reset-password",
+								"ed7f5421-bd50-4d11-973b-6a3554cd077b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYWUxMmJiLTBiYTQtNDhkZC05YmY1LTgzM2YzMjRiMTRiMCIsInJvbGVfaWQiOiIxIiwiZW1haWwiOiJyYWloYW5pcnZhbmExM0BnbWFpbC5jb20iLCJwaG9uZSI6IjA4NTg1NjkxNDQ3OCIsImZpcnN0X25hbWUiOiJyYWloYW4iLCJsYXN0X25hbWUiOiJpcnZhbmEiLCJpbWFnZSI6bnVsbCwiaWF0IjoxNjgzMDMwNDc0LCJleHAiOjE2ODMyMDMyNzR9.DU-5vQBHMwuc5qj_HoHT1ctbON5Q5IjF0wB0KrBk4e0",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
