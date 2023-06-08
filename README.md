@@ -13,9 +13,8 @@
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Related Project](#related-project)
+- [Features](#features)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -23,13 +22,8 @@
 - [Table Structure](#table-structure)
 - [License](#license)
 - [Contributors](#contributors)
+- [Related Project](#related-project)
 - [Report](#report)
-
-## Features
-
-- Upload Images
-- CRUD
-- Blacklisting JWT
 
 ## Technologies Used
 
@@ -43,9 +37,11 @@
 - JSON Web Token (authorization)
 - Vercel (for deploying)
 
-## Related Project
+## Features
 
-- [tickits-fe](https://github.com/purapuraturtle/tickits-fe) - Front-end side
+- Upload Images
+- CRUD (Movies, Cinemas, etc)
+- Blacklisting JWT
 
 ## Getting Started
 
@@ -118,6 +114,12 @@
      SMTP_PASSWORD = (your smtp password)
      ```
 
+4. Run project
+
+      ```bash
+      npm start
+      ```
+
 ## Postman Documentation
 
 You can download the documentation from [Postman](https://elements.getpostman.com/redirect?entityId=26209677-86cf2f53-ba40-473a-bbc7-7858774e9b95&entityType=collection) or [JSON File](/tickits-postman-collection.json).
@@ -147,6 +149,10 @@ This project using ISC License
     </tr>
   </tbody>
 </table>
+
+## Related Project
+
+- [tickits-fe](https://github.com/purapuraturtle/tickits-fe) - Front-end side
 
 ## Report
 
