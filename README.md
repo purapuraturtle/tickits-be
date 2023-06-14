@@ -12,7 +12,8 @@
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
+- [Overview](#overview)
+  - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Features](#features)
 - [Getting Started](#getting-started)
@@ -25,9 +26,22 @@
 - [Related Project](#related-project)
 - [Report](#report)
 
+## Overview
+
+Tickits is an open-source web application designed to simplify the process of booking movie tickets online. The project aims to provide users with a convenient and user-friendly platform to browse movie listings, select seats, and purchase tickets from the comfort of their homes.
+
+This is rest api repository for [tickits-fe](https://github.com/purapuraturtle/tickits-fe)
+
+ ### Features
+
+  - Authentication & Authorization
+  - Customer Side: Booking Seat Movies, Profile
+  - Admin Side: New Movie, Set Cinemas Time, Update Movie, Delete Movie
+  - Upload Images, Whitelisting JWT
+
 ## Technologies Used
 
-[![My Skills](https://skillicons.dev/icons?i=nodejs,express,postgres,redis)](https://skillicons.dev)
+[My Skills](https://skillicons.dev/icons?i=nodejs,express,postgres,redis)
 
 - Node.js
 - Express.js
@@ -36,12 +50,6 @@
 - Redis (blacklisting jwt)
 - JSON Web Token (authorization)
 - Vercel (for deploying)
-
-## Features
-
-- Upload Images
-- CRUD (Movies, Cinemas, etc)
-- Blacklisting JWT
 
 ## Getting Started
 
