@@ -1,10 +1,15 @@
 <div align='center'>
 
-<img src="./public/logo-rect.svg" alt="Tickits" width="144"/>
+<img src="./public/logo-rect.svg" alt="Tickits" width="128"/>
+
+<br>
+
+[![My Skills](https://skillicons.dev/icons?i=nodejs,express,postgres,redis)](#technologies-used)
+
 <h2 style="">Tickits</h2>
 <h3 align="center">Rest API for tickits</h3>
 
-[Demo](https://github.com/nyannss/jokopi-react) · [Related Project](#related-project)
+[Demo](https://tickits-be.vercel.app/) · [Related Project](#related-project)
 
 <hr>
 <h3 align="center">Powered by Vercel ⚡</h3>
@@ -32,23 +37,21 @@ Tickits is an open-source web application designed to simplify the process of bo
 
 This is rest api repository for [tickits-fe](https://github.com/purapuraturtle/tickits-fe)
 
- ### Features
+### Features
 
-  - Authentication & Authorization
-  - Customer Side: Booking Seat Movies, Profile
-  - Admin Side: New Movie, Set Cinemas Time, Update Movie, Delete Movie
-  - Upload Images, Whitelisting JWT
+- Authentication & Authorization
+- Customer Side: Booking Seat Movies, Profile
+- Admin Side: New Movie, Set Cinemas Time, Update Movie, Delete Movie
+- Upload Images, Whitelisting JWT
 
 ## Technologies Used
 
-[My Skills](https://skillicons.dev/icons?i=nodejs,express,postgres,redis)
-
-- Node.js
-- Express.js
-- PostgreSQL (for storing data)
-- Cloudinary (for storing images)
-- Redis (blacklisting jwt)
-- JSON Web Token (authorization)
+- [Node.js](https://nodejs.org/en)
+- [Express.js](https://expressjs.com/)
+- [PostgreSQL](https://www.postgresql.org/) (for storing data)
+- [Cloudinary](https://cloudinary.com/) (for storing images)
+- [Redis](https://redis.io/) (blacklisting jwt)
+- [JSON Web Token](https://jwt.io/) (authorization)
 - Vercel (for deploying)
 
 ## Getting Started
@@ -78,7 +81,7 @@ This is rest api repository for [tickits-fe](https://github.com/purapuraturtle/t
 3. Setup environments (you can see in `.env.example`)
 
    - Server port (default 8080)
-  
+
      ```env
      SERVER_PORT = (put your server port)
      ```
@@ -124,9 +127,9 @@ This is rest api repository for [tickits-fe](https://github.com/purapuraturtle/t
 
 4. Run project
 
-      ```bash
-      npm start
-      ```
+   ```bash
+   npm start
+   ```
 
 ## Postman Documentation
 
